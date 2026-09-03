@@ -1,0 +1,29 @@
+MySQL Shell 9.5.1
+
+Copyright (c) 2016, 2025, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306  SQL > show databases;
++---------------------+
+| Database            |
++---------------------+
+| academiaavanza      |
+| bisrcdb             |
+| conexion-db         |
+| gestion_recursos_mx |
+| information_schema  |
+| mysql               |
+| performance_schema  |
+| phpmyadmin          |
+| test                |
++---------------------+
+9 rows in set (0.0011 sec)
+ MySQL  localhost:3306  SQL >
