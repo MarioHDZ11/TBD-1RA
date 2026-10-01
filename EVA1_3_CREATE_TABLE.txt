@@ -1,0 +1,143 @@
+MySQL Shell 9.5.1
+
+Copyright (c) 2016, 2025, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost':
+Save password for 'root@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306  SQL > show databases;
++---------------------+
+| Database            |
++---------------------+
+| academiaavanza      |
+| bisrcdb             |
+| conexion-db         |
+| gestion_recursos_mx |
+| information_schema  |
+| mysql               |
+| performance_schema  |
+| phpmyadmin          |
+| tbde1               |
+| test                |
++---------------------+
+10 rows in set (0.0010 sec)
+ MySQL  localhost:3306  SQL > use tbde1;
+Default schema set to `tbde1`.
+Fetching global names, object names from `tbde1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306  tbde1  SQL > show tables;
+Empty set (0.0008 sec)
+ MySQL  localhost:3306  tbde1  SQL > create table Persona(
+                                  -> id_persona int not null auto_increment key,
+                                  -> nombre varchar(50) not null,
+                                  -> ap_paterno varchar(50) not null,
+                                  -> ap_materno varchar(50) null,
+                                  -> fecha_nac date not null);
+Query OK, 0 rows affected (0.0131 sec)
+ MySQL  localhost:3306  tbde1  SQL > show tables;
++-----------------+
+| Tables_in_tbde1 |
++-----------------+
+| persona         |
++-----------------+
+1 row in set (0.0011 sec)
+ MySQL  localhost:3306  tbde1  SQL > show create table persona;
++---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                                                       |
++---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| persona | CREATE TABLE `persona` (
+  `id_persona` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
+  `ap_paterno` varchar(50) NOT NULL,
+  `ap_materno` varchar(50) DEFAULT NULL,
+  `fecha_nac` date NOT NULL,
+  PRIMARY KEY (`id_persona`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci |
++---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0017 sec)
+ MySQL  localhost:3306  tbde1  SQL > desc persona;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id_persona | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50) | NO   |     | NULL    |                |
+| ap_paterno | varchar(50) | NO   |     | NULL    |                |
+| ap_materno | varchar(50) | YES  |     | NULL    |                |
+| fecha_nac  | date        | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.0163 sec)
+ MySQL  localhost:3306  tbde1  SQL > drop table persona;
+Query OK, 0 rows affected (0.0099 sec)
+ MySQL  localhost:3306  tbde1  SQL > show tables;
+Empty set (0.0009 sec)
+ MySQL  localhost:3306  tbde1  SQL > create table Persona( id_persona int not null auto_increment key,  nombre varchar(50) not null, ap_paterno varchar(50) not null, ap_materno varchar(50) null, fecha_nac date not null);
+Query OK, 0 rows affected (0.0127 sec)
+ MySQL  localhost:3306  tbde1  SQL > show tables;
++-----------------+
+| Tables_in_tbde1 |
++-----------------+
+| persona         |
++-----------------+
+1 row in set (0.0009 sec)
+ MySQL  localhost:3306  tbde1  SQL > insert persona
+                                  -> value(1,"Mario","Hernandez","Balderrama","2005-03-19")
+                                  ->
+                                  ->
+                                  -> ^C
+ MySQL  localhost:3306  tbde1  SQL > insert into persona
+                                  -> value(1,"Mario","Hernandez","Balderrama","2005-03-19");
+Query OK, 1 row affected (0.0059 sec)
+ MySQL  localhost:3306  tbde1  SQL > select * from persona;
++------------+--------+------------+------------+------------+
+| id_persona | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+|          1 | Mario  | Hernandez  | Balderrama | 2005-03-19 |
++------------+--------+------------+------------+------------+
+1 row in set (0.0008 sec)
+ MySQL  localhost:3306  tbde1  SQL > insert into persona value(1,"Mario","Hernandez","Balderrama","2005-03-19");
+ERROR: 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+ MySQL  localhost:3306  tbde1  SQL > insert into persona value(2,"Juan","Perez","Balderrama","1970-11-12");
+Query OK, 1 row affected (0.0052 sec)
+ MySQL  localhost:3306  tbde1  SQL > select * from persona;
++------------+--------+------------+------------+------------+
+| id_persona | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+|          1 | Mario  | Hernandez  | Balderrama | 2005-03-19 |
+|          2 | Juan   | Perez      | Balderrama | 1970-11-12 |
++------------+--------+------------+------------+------------+
+2 rows in set (0.0005 sec)
+ MySQL  localhost:3306  tbde1  SQL > insert persona (nombre, ap_paterno, fecha_nac)
+                                  -> value("Pedro","Paramo","1920-10-23");
+Query OK, 1 row affected (0.0050 sec)
+ MySQL  localhost:3306  tbde1  SQL > select * from persona;
++------------+--------+------------+------------+------------+
+| id_persona | nombre | ap_paterno | ap_materno | fecha_nac  |
++------------+--------+------------+------------+------------+
+|          1 | Mario  | Hernandez  | Balderrama | 2005-03-19 |
+|          2 | Juan   | Perez      | Balderrama | 1970-11-12 |
+|          3 | Pedro  | Paramo     | NULL       | 1920-10-23 |
++------------+--------+------------+------------+------------+
+3 rows in set (0.0005 sec)
+ MySQL  localhost:3306  tbde1  SQL > insert persona (ap_paterno, fecha_nac) value("Pedro","Paramo","1920-10-23")
+                                  -> ^C
+ MySQL  localhost:3306  tbde1  SQL > insert persona (ap_paterno, fecha_nac) value("Paramo","1920-10-23");
+ERROR: 1364 (HY000): Field 'nombre' doesn't have a default value
+ MySQL  localhost:3306  tbde1  SQL > desc persona;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id_persona | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50) | NO   |     | NULL    |                |
+| ap_paterno | varchar(50) | NO   |     | NULL    |                |
+| ap_materno | varchar(50) | YES  |     | NULL    |                |
+| fecha_nac  | date        | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.0178 sec)
+ MySQL  localhost:3306  tbde1  SQL >
